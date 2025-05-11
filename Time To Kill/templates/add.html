@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Task</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: beige;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: #FFDE9B;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 80%; 
+            max-width: 1000px;
+            margin: 50px auto 0 auto; 
+        }
+
+        h1 {
+            color: #451200;
+        }
+
+        input[type="text"], input[type="number"] {
+            padding: 12px 20px;
+            margin: 10px 0;
+            width: 80%;
+            background-color: #FFD590;
+            color: #451200;
+            border: none;
+            border-radius: 30px;
+            font-size: 16px;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="number"]::placeholder {
+            color: #734522;
+        }
+
+        button[type="submit"] {
+            padding: 12px 30px;
+            background-color: #451200;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #210900;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            background-color: #FFD590;
+            color: #451200;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #B8A070;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add Task</h1>
+        <form method="POST">
+            <input type="text" name="task" placeholder="Enter task" required><br>
+            <input type="number" name="duration" placeholder="Duration (mins)" required min="1"><br>
+            <button type="submit">Save</button>
+        </form>
+
+        <form action="/">
+            <button class="back-button" type="submit">← Back</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ task_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fff3d1;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #FFDE9B;
+            width: 600px;
+            margin: 50px auto 0 auto;
+            padding: 60px 40px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            text-align: center;
+            min-height: 500px;
+        }
+
+        h1 {
+            color: #451200;
+            font-size: 56px;
+            margin-bottom: 40px;
+        }
+
+        .timer {
+            font-size: 80px;
+            font-weight: bold;
+            color: #2D3840;
+            margin-bottom: 50px;
+        }
+
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-button {
+            background-color: #FFD590;
+            color: #451200;
+            border: none;
+            border-radius: 30px;
+            padding: 18px 40px;
+            font-size: 22px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            min-width: 220px;
+        }
+
+        .nav-button:hover {
+            background-color: #B8A070;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ task_name }}</h1>
+        <div class="timer" id="countdown"></div>
+
+        <div class="button-group">
+            <button type="button" class="nav-button" onclick="togglePause()" id="pauseBtn">Pause</button>
+
+            <form action="/switch-task" method="get">
+                <input type="hidden" name="minutes" value="{{ duration }}">
+                <input type="hidden" name="current_task" value="{{ task_name }}">
+                <button type="submit" class="nav-button">↻ Switch Task</button>
+            </form>
+
+
+
+            <form action="/" method="get">
+                <button type="submit" class="nav-button">← Home</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let timeLeft = parseInt("{{ duration }}") * 60;
+        let paused = false;
+        let timerInterval;
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            return `${m}:${s < 10 ? '0' + s : s}`;
+        }
+
+        function updateCountdown() {
+            const countdownEl = document.getElementById("countdown");
+            if (!paused) {
+                if (timeLeft <= 0) {
+                    countdownEl.textContent = "Time's up!";
+                    clearInterval(timerInterval);
+                } else {
+                    countdownEl.textContent = formatTime(timeLeft);
+                    timeLeft--;
+                }
+            }
+        }
+
+        function togglePause() {
+            paused = !paused;
+            document.getElementById("pauseBtn").textContent = paused ? "Resume" : "Pause";
+        }
+
+        updateCountdown();
+        timerInterval = setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
