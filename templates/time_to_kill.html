@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Time to Kill</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: beige;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background: #FFDE9B;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            width: 80%; 
+            max-width: 1000px;
+            margin: 50px auto 0 auto; 
+        }
+
+        h1 {
+            color: #451200;
+        }
+
+        .time-form {
+            margin-top: 30px;
+        }
+
+        .time-form input[type="number"] {
+            margin: 10px 0;
+            padding: 12px 20px;
+    width: 80%;
+    background-color: #FFD590;
+    color: #451200;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+}
+
+.time-form input[type="number"]::placeholder {
+    color: #734522;
+}
+
+
+
+
+        .time-form button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            background-color: #2D3840;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 90px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .time-form button:hover {
+            background-color: #0E1214;
+        }
+
+        .back-button {
+            margin-top: 20px;
+            background-color: #FFD590;
+            color: #451200;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #B8A070;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Time to Kill</h1>
+        <form class="time-form" method="POST">
+            <p style="color: #451200; font-size: 18px;">How many minutes do you have?</p>
+            <input type="number" name="minutes" placeholder="Enter minutes" required min="1">
+            <br>
+            <button type="submit">Find a Task</button>
+        </form>
+
+        <form action="/" method="get">
+            <button class="back-button">← Back</button>
+        </form>
+
+    </div>
+
+    {% if chosen_task %}
+    <script>
+        alert("{{ chosen_task }}");
+    </script>
+    {% endif %}
+</body>
+</html>
