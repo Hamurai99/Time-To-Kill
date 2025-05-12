@@ -1,29 +1,36 @@
-from flask import Flask, render_template, request, redirect, url_for
-import random
+from flask import Flask, render_template, request, redirect, url_for, session
+
+import random, os, uuid
 
 app = Flask(__name__)
-import os
+app.secret_key = 'your-secret-key'
 TASK_FILE = os.path.join(os.path.dirname(__file__), "tasks.txt")
+
+@app.before_request
+def assign_user_id():
+    if "user_id" not in session:
+        session["user_id"] = str(uuid.uuid4())
+
+
+def get_user_task_file():
+    user_id = session["user_id"]
+    return os.path.join(os.path.dirname(__file__), f"tasks_{user_id}.txt")
 
 def load_tasks():
     try:
-        with open(TASK_FILE, "r") as f:
-            return [line.strip() for line in f.readlines()]
+        with open(get_user_task_file(), "r") as f:
+            return [line.strip() for line in f]
     except FileNotFoundError:
         return []
 
-
-
 def save_task(task_text):
-    print("Saving to:", os.path.abspath(TASK_FILE))  # ✅ Add this line
-    with open(TASK_FILE, "a") as f:
+    with open(get_user_task_file(), "a") as f:
         f.write(task_text + "\n")
-
 
 def delete_task(task_text):
     tasks = load_tasks()
     tasks = [task for task in tasks if task.strip() != task_text.strip()]
-    with open(TASK_FILE, "w") as f:
+    with open(get_user_task_file(), "w") as f:
         f.writelines([task + "\n" for task in tasks])
 
 
